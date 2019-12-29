@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const request = require('request');
 const url = 'https://92rjxexbvf.execute-api.us-east-1.amazonaws.com/get/getCharacters';
+
 app.use(express.static(__dirname + '/css'));
 app.set("view engine", "ejs");
 app.listen(3000, () => {
