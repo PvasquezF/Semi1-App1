@@ -1,54 +1,15 @@
-apiVersion: beta1
-kind: Deployment
-metadata:
-  name: test
-  namespace: default
-spec:
-  progressDeadlineSeconds: 600
-  replicas: 1
-  revisionHistoryLimit: 10
-  selector:
-    matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-default-test
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        workload.user.cattle.io/workloadselector: deployment-default-test
-    spec:
-      containers:
-      - image: node
-        imagePullPolicy: Always
-        name: test
-      dnsPolicy: ClusterFirst
-      imagePullSecrets:
-      - name: dockerhub
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
----      
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    field.cattle.io/targetWorkloadIds: '["deployment:default:test"]'
-    workload.cattle.io/targetWorkloadIdNoop: "true"
-    workload.cattle.io/workloadPortBased: "true"
-  labels:
-    cattle.io/creator: norman
-  name: nginx-loadbalancer
-  namespace: default
-spec:
-  externalTrafficPolicy: Cluster
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    workload.user.cattle.io/workloadselector: deployment-default-test
-  type: LoadBalancer 
+stages:
+- name: Create Docker Image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: node
+      pushRemote: true
+      registry: index.docker.io
+- name: Create Deployment
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+timeout: 60
+notification: {}
