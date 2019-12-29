@@ -9,7 +9,6 @@ app.set("view engine", "ejs");
 app.listen(3000, () => {
     console.log(`Running on http://localhost:3000`);
 });
-
 app.get('/', (req, res) => {
     request(url, function(error, response, body) {
         body = JSON.parse(body);
