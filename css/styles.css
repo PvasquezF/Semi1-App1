@@ -1,0 +1,35 @@
+ul>li {
+    display: inline-block;
+    /* You can also add some margins here to make it look prettier */
+    zoom: 1;
+    *display: inline;
+    /* this fix is needed for IE7- */
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+.imagen {
+    border: 1px solid #049CD8;
+    background-color: #FBD000;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    padding-top: -10px;
+}
+
+.texto {
+    font-family: 'Roboto Slab', serif;
+    font-size: 20px;
+    width: 150px;
+}
+
+h1,
+p {
+    font-family: 'Roboto Slab', serif;
+}
+
+body {
+    background-color: #FBD000;
+}
