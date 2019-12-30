@@ -1,4 +1,4 @@
-apiVersion: beta1
+apiVersion: v1
 kind: Deployment
 metadata:
   name: test
