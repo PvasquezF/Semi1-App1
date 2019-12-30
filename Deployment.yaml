@@ -52,3 +52,17 @@ spec:
   selector:
     workload.user.cattle.io/workloadselector: deployment-default-test
   type: LoadBalancer 
+
+---
+apiVersion: v1
+data:
+  password: V@squez12345
+  username: pvasquezf
+kind: Secret
+metadata:
+  creationTimestamp: null
+  labels:
+    cattle.io/creator: norman
+  name: p-vlrzj-demogoharborio
+  selfLink: /api/v1/namespaces/p-vlrzj-pipeline/secrets/p-vlrzj-demogoharborio
+type: Opaque
