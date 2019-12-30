@@ -26,7 +26,7 @@ spec:
         name: test
       dnsPolicy: ClusterFirst
       imagePullSecrets:
-      - name: demo.goharbor.io
+      - name: demo.goharbor.io/seminario1/
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
