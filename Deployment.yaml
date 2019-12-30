@@ -1,15 +1,27 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    field.cattle.io/creatorId: user-4n9jx
+    field.cattle.io/publicEndpoints: '[{"addresses":["35.232.121.8"],"port":3000,"protocol":"TCP","serviceName":"default:myapp-loadbalancer","allNodes":false}]'
+  creationTimestamp: "2019-12-30T05:08:36Z"
+  generation: 2
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-default-myapp
+  name: myapp
   namespace: default
+  resourceVersion: "129186"
+  selfLink: /apis/apps/v1/namespaces/default/deployments/myapp
+  uid: fb0677de-a726-4789-98a2-3e91d66090be
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-default-test
+      workload.user.cattle.io/workloadselector: deployment-default-myapp
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,38 +29,55 @@ spec:
     type: RollingUpdate
   template:
     metadata:
+      annotations:
+        cattle.io/timestamp: "2019-12-30T05:08:36Z"
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"myapp-loadbalancer","kind":"LoadBalancer","name":"3000tcp80803","protocol":"TCP"}]]'
+      creationTimestamp: null
       labels:
-        workload.user.cattle.io/workloadselector: deployment-default-test
+        workload.user.cattle.io/workloadselector: deployment-default-myapp
     spec:
       containers:
-      - image: demo.goharbor.io/seminario1/node:proyecto
+      - image: demo.goharbor.io/seminario1/node:latest
         imagePullPolicy: Always
-        name: test
+        name: myapp
+        ports:
+        - containerPort: 3000
+          name: 3000tcp80803
+          protocol: TCP
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
-      - name: demo.goharbor.io
+      - name: dc-vs9pp
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
----      
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    field.cattle.io/targetWorkloadIds: '["deployment:default:test"]'
-    workload.cattle.io/targetWorkloadIdNoop: "true"
-    workload.cattle.io/workloadPortBased: "true"
-  labels:
-    cattle.io/creator: norman
-  name: nginx-loadbalancer
-  namespace: default
-spec:
-  externalTrafficPolicy: Cluster
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    workload.user.cattle.io/workloadselector: deployment-default-test
-  type: LoadBalancer 
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2019-12-30T05:08:38Z"
+    lastUpdateTime: "2019-12-30T05:08:38Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2019-12-30T05:08:36Z"
+    lastUpdateTime: "2019-12-30T05:08:38Z"
+    message: ReplicaSet "myapp-64898bff5b" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
