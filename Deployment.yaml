@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: test
@@ -26,7 +26,7 @@ spec:
         name: test
       dnsPolicy: ClusterFirst
       imagePullSecrets:
-      - name: docker login demo.goharbor.io -u pvasquezf -p V@squez12345
+      - name: demo.goharbor.io
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
