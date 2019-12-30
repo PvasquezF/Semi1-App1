@@ -6,7 +6,7 @@ stages:
       buildContext: .
       tag: node
       pushRemote: true
-      registry: index.docker.io
+      registry: demo.harbor.io
 - name: Create Deployment
   steps:
   - applyYamlConfig:

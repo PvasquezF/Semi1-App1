@@ -21,12 +21,12 @@ spec:
         workload.user.cattle.io/workloadselector: deployment-default-test
     spec:
       containers:
-      - image: node
+      - image: demo.goharbor.io/seminario1/node:proyecto
         imagePullPolicy: Always
         name: test
       dnsPolicy: ClusterFirst
       imagePullSecrets:
-      - name: dockerhub
+      - name: harbor.io
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
