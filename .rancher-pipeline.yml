@@ -6,7 +6,7 @@ stages:
       buildContext: .
       tag: node
       pushRemote: true
-      registry: docker login demo.goharbor.io -u pvasquezf -p V@squez12345
+      registry: demo.goharbor.io/seminario1
 - name: Create Deployment
   steps:
   - applyYamlConfig:
