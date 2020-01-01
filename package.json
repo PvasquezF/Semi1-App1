@@ -1,24 +1,26 @@
 {
-  "name": "semi1-app1",
-  "version": "1.0.0",
-  "description": "Aplicacion 1 del proyecto de seminario 1",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PvasquezF/Semi1-App1.git"
-  },
-  "author": "pvasquezf\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[C\u001b[\u001b[\u001b[3~\u001b[3~\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001bPvasquezF",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/PvasquezF/Semi1-App1/issues"
-  },
-  "homepage": "https://github.com/PvasquezF/Semi1-App1#readme",
-  "dependencies": {
-    "ejs": "^3.0.1",
-    "express": "^4.17.1",
-    "request": "^2.88.0"
-  }
+    "name": "semi1-app1",
+    "version": "1.0.0",
+    "description": "Aplicacion 1 del proyecto de seminario 1",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PvasquezF/Semi1-App1.git"
+    },
+    "author": "pvasquezf\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[C\u001b[\u001b[\u001b[3~\u001b[3~\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001bPvasquezF",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/PvasquezF/Semi1-App1/issues"
+    },
+    "homepage": "https://github.com/PvasquezF/Semi1-App1#readme",
+    "dependencies": {
+        "ejs": "^3.0.1",
+        "express": "^4.17.1",
+        "request": "^2.88.0",
+        "grpc": "^1.24.2",
+        "@grpc/proto-loader": "^0.5.3"
+    }
 }
