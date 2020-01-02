@@ -4,7 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: node
+      tag: app1:latest
       pushRemote: true
       registry: demo.goharbor.io/seminario1
 - name: Create Deployment
