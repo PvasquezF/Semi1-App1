@@ -2,23 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "2"
-    field.cattle.io/creatorId: user-vgxcx
-    field.cattle.io/publicEndpoints: '[{"addresses":["34.68.244.41"],"port":3000,"protocol":"TCP","serviceName":"default:app1-loadbalancer","allNodes":false}]'
-  creationTimestamp: null
-  generation: 1
+    deployment.kubernetes.io/revision: "1"
+    field.cattle.io/creatorId: user-b7mqs
+    field.cattle.io/publicEndpoints: '[{"addresses":["35.222.94.108"],"port":3000,"protocol":"TCP","serviceName":"project1:app1-loadbalancer","allNodes":false}]'
+  creationTimestamp: "2020-01-02T23:56:57Z"
+  generation: 2
   labels:
     cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: deployment-default-app1
+    workload.user.cattle.io/workloadselector: deployment-project1-app1
   name: app1
-  selfLink: /apis/apps/v1/namespaces/default/deployments/app1
+  namespace: project1
+  resourceVersion: "26060"
+  selfLink: /apis/apps/v1/namespaces/project1/deployments/app1
+  uid: f0bd2f55-2790-4e15-98ae-5e69d104161d
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-default-app1
+      workload.user.cattle.io/workloadselector: deployment-project1-app1
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -27,11 +30,11 @@ spec:
   template:
     metadata:
       annotations:
-        cattle.io/timestamp: "2020-01-02T04:46:53Z"
-        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"app1-loadbalancer","kind":"LoadBalancer","name":"3000tcp03","protocol":"TCP"}]]'
+        cattle.io/timestamp: "2020-01-02T23:56:58Z"
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"app1-loadbalancer","kind":"LoadBalancer","name":"3000tcp803","protocol":"TCP"}]]'
       creationTimestamp: null
       labels:
-        workload.user.cattle.io/workloadselector: deployment-default-app1
+        workload.user.cattle.io/workloadselector: deployment-project1-app1
     spec:
       containers:
       - image: demo.goharbor.io/seminario1/app1:latest
@@ -39,11 +42,12 @@ spec:
         name: app1
         ports:
         - containerPort: 3000
-          name: 3000tcp03
+          name: 3000tcp803
           protocol: TCP
         resources: {}
         securityContext:
           allowPrivilegeEscalation: false
+          capabilities: {}
           privileged: false
           readOnlyRootFilesystem: false
           runAsNonRoot: false
@@ -56,4 +60,22 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status: {}
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2020-01-02T23:57:00Z"
+    lastUpdateTime: "2020-01-02T23:57:00Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2020-01-02T23:56:57Z"
+    lastUpdateTime: "2020-01-02T23:57:00Z"
+    message: ReplicaSet "app1-57fd8f4444" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
