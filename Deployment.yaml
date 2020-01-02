@@ -1,83 +1,109 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "1"
-    field.cattle.io/creatorId: user-4n9jx
-    field.cattle.io/publicEndpoints: '[{"addresses":["35.232.121.8"],"port":3000,"protocol":"TCP","serviceName":"default:myapp-loadbalancer","allNodes":false}]'
-  creationTimestamp: "2019-12-30T05:08:36Z"
-  generation: 2
+    cattle.io/timestamp: "2020-01-02T04:16:18Z"
+    field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"app1-loadbalancer","kind":"LoadBalancer","name":"3000tcp803","protocol":"TCP"}]]'
+    kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu request for container
+      app1'
+  creationTimestamp: "2020-01-02T04:16:18Z"
+  generateName: app1-756bd5fbdb-
   labels:
-    cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: deployment-default-myapp
-  name: myapp
+    pod-template-hash: 756bd5fbdb
+    workload.user.cattle.io/workloadselector: deployment-default-app1
+  name: app1-756bd5fbdb-gbzxw
   namespace: default
-  resourceVersion: "129186"
-  selfLink: /apis/apps/v1/namespaces/default/deployments/myapp
-  uid: fb0677de-a726-4789-98a2-3e91d66090be
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: app1-756bd5fbdb
+    uid: 3ed6e885-6ff9-4d51-8c1f-594348695448
+  resourceVersion: "2837"
+  selfLink: /api/v1/namespaces/default/pods/app1-756bd5fbdb-gbzxw
+  uid: f0b93454-93a9-426d-8b84-2964b750c9ce
 spec:
-  progressDeadlineSeconds: 600
-  replicas: 1
-  revisionHistoryLimit: 10
-  selector:
-    matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-default-myapp
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-    type: RollingUpdate
-  template:
-    metadata:
-      annotations:
-        cattle.io/timestamp: "2019-12-30T05:08:36Z"
-        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"myapp-loadbalancer","kind":"LoadBalancer","name":"3000tcp80803","protocol":"TCP"}]]'
-      creationTimestamp: null
-      labels:
-        workload.user.cattle.io/workloadselector: deployment-default-myapp
-    spec:
-      containers:
-      - image: demo.goharbor.io/seminario1/node:latest
-        imagePullPolicy: Always
-        name: myapp
-        ports:
-        - containerPort: 3000
-          name: 3000tcp80803
-          protocol: TCP
-        resources: {}
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities: {}
-          privileged: false
-          readOnlyRootFilesystem: false
-          runAsNonRoot: false
-        stdin: true
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        tty: true
-      dnsPolicy: ClusterFirst
-      imagePullSecrets:
-      - name: dc-vs9pp
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
+  containers:
+  - image: demo.goharbor.io/seminario1/app1:latest
+    imagePullPolicy: Always
+    name: app1
+    ports:
+    - containerPort: 3000
+      name: 3000tcp803
+      protocol: TCP
+    resources:
+      requests:
+        cpu: 100m
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities: {}
+      privileged: false
+      readOnlyRootFilesystem: false
+      runAsNonRoot: false
+    stdin: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-hnv6s
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-c-trddg-default-0-916c8ff8-1b1v
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: default-token-hnv6s
+    secret:
+      defaultMode: 420
+      secretName: default-token-hnv6s
 status:
-  availableReplicas: 1
   conditions:
-  - lastTransitionTime: "2019-12-30T05:08:38Z"
-    lastUpdateTime: "2019-12-30T05:08:38Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
+  - lastProbeTime: null
+    lastTransitionTime: "2020-01-02T04:16:18Z"
     status: "True"
-    type: Available
-  - lastTransitionTime: "2019-12-30T05:08:36Z"
-    lastUpdateTime: "2019-12-30T05:08:38Z"
-    message: ReplicaSet "myapp-64898bff5b" has successfully progressed.
-    reason: NewReplicaSetAvailable
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2020-01-02T04:16:20Z"
     status: "True"
-    type: Progressing
-  observedGeneration: 2
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2020-01-02T04:16:20Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2020-01-02T04:16:18Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://e3d5dbc984d2e7b26d118da6be7b021a9e310ea3413790a14c255bb07dda38bc
+    image: demo.goharbor.io/seminario1/app1:latest
+    imageID: docker-pullable://demo.goharbor.io/seminario1/app1@sha256:0eea86dc10820607ae49e3d24fcdd067c53170670d765a8a34eccc03ceb477c0
+    lastState: {}
+    name: app1
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: "2020-01-02T04:16:19Z"
+  hostIP: 10.128.0.22
+  phase: Running
+  podIP: 10.44.1.7
+  qosClass: Burstable
+  startTime: "2020-01-02T04:16:18Z"
