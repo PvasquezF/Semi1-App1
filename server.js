@@ -16,8 +16,7 @@ var packageDefinition = protoLoader.loadSync(
         oneofs: true
     });
 var hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
-var client = new hello_proto.Greeter('35.202.21.98:50051', grpc.credentials.createInsecure());
-var client2 = new hello_proto.Greeter('34.68.244.41:50052', grpc.credentials.createInsecure());
+var client = new hello_proto.Greeter('localhost:50051', grpc.credentials.createInsecure());
 var user;
 
 app.use(express.static(__dirname + '/css'));
@@ -30,33 +29,13 @@ app.get('/', (req, res) => {
         body = JSON.parse(body);
         user = req.params.id;
         client.sayHello({ name: 'Hola Mundo' }, function(err, responseA2) {
-            client2.sayHello({ name: 'Adios Mundo' }, function(err, responseA3) {
-                console.log(responseA2.message);
-                console.log(responseA3.message);
-                res.render('index', {
-                    "data": body,
-                    "respuestaApp2": responseA2.message,
-                    "respuestaApp3": responseA3.message
-                });
-            });
-        });
-    });
-});
-
-app.get('/:valor', function(req, res) {
-    user = req.params.valor;
-    request(url, function(error, response, body) {
-        body = JSON.parse(body);
-        user = req.params.id;
-        client.sayHello({ name: user }, function(err, responseA2) {
-            client2.sayHello({ name: 'App3 -> ' + user }, function(err, responseA3) {
-                console.log(responseA2.message);
-                console.log(responseA3.message);
-                res.render('index', {
-                    "data": body,
-                    "respuestaApp2": responseA2.message,
-                    "respuestaApp3": responseA3.message
-                });
+            console.log(responseA2);
+            console.log(responseA2.message1);
+            console.log(responseA2.message2);
+            res.render('index', {
+                "data": body,
+                "respuestaApp2": responseA2.message1,
+                "respuestaApp3": responseA2.message2
             });
         });
     });
