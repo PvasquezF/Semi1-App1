@@ -16,7 +16,7 @@ var packageDefinition = protoLoader.loadSync(
         oneofs: true
     });
 var hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
-var client = new hello_proto.Greeter('35.225.207.243:50051', grpc.credentials.createInsecure());
+var client = new hello_proto.Greeter('34.70.39.209:50051', grpc.credentials.createInsecure());
 var user;
 
 app.use(express.static(__dirname + '/css'));
